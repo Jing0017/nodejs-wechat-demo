@@ -1,6 +1,7 @@
 'use strict'
 
 var Koa = require('koa')
+var serve = require('koa-static')
 var wechat = require('./wechat/g')
 var path = require('path')
 var config = require('./config')
@@ -82,6 +83,8 @@ function sign(ticket, url) {
         signature: signature
     }
 }
+
+app.use(serve(path.join(__dirname, 'public')))
 
 app.use(function *(next) {
     if (this.url.indexOf('/movie') > -1) {
