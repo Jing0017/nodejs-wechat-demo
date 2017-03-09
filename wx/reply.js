@@ -6,11 +6,11 @@ var Wechat = require('../wechat/wechat')
 var menu = require('./menu')
 var wechatApi = new Wechat(config.wechat)
 
-wechatApi.deleteMenu().then(function () {
-    wechatApi.createMenu(menu)
-}).then(function (msg) {
-    console.log(msg)
-})
+// wechatApi.deleteMenu().then(function () {
+//     wechatApi.createMenu(menu)
+// }).then(function (msg) {
+//     console.log(msg)
+// })
 
 exports.reply = function*(next) {
     var message = this.weixin
