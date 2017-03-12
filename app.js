@@ -29,6 +29,7 @@ var tpl = heredoc(function () {/*
             <div id="poster"></div>
             <script src="http://zeptojs.com/zepto.min.js"></script>
             <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+            <script src="touch.js"></script>
             <script>
                  wx.config({
                      debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -51,8 +52,40 @@ var tpl = heredoc(function () {/*
                          success: function(res) {
                             console.log(res)
                          }
-                     });
-                 });
+                     })
+
+                     var isRecording = false
+                     $('h1').on('tap', function(){
+                        if(!isRecording){
+                           isRecording = true
+                           wx.startRecord({
+                             cancel:function(){
+                                window.alert('搜索不了啦,请给我权限撒^_^')
+                             }
+                           })
+                           return
+                        }
+
+                         isRecording = false
+
+                         wx.stopRecord({
+                         success: function (res) {
+                             var localId = res.localId
+
+                             wx.translateVoice({
+                                 localId: localId, // 需要识别的音频的本地Id，由录音相关接口获得
+                                 isShowProgressTips: 1, // 默认为1，显示进度提示
+                                 success: function (res) {
+                                    window.alert(res.translateResult); // 语音识别的结果
+                                 }
+                             })
+
+
+
+                             }
+                         })
+                     })
+                 })
  </script>
         </body>
     </html>
