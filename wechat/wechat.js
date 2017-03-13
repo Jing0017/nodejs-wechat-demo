@@ -59,7 +59,7 @@ var api = {
     shortUrl: {
         create: prefix + 'shorturl?'
     },
-    ticket:{
+    ticket: {
         get: prefix + 'ticket/getticket?'
     }
 }
